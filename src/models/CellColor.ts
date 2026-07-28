@@ -1,0 +1,1 @@
+export type CellColor = "BLACK" | "YELLOW";
