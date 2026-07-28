@@ -1,11 +1,9 @@
 import type { Pattern } from "../models/Pattern";
 import { CellColor } from "../models/CellColor";
 
-
 export class WordleEngine {
 
     static evaluate(answer: string, guess: string): Pattern {
-
         const answer_letters =
             Array.from(answer);
 

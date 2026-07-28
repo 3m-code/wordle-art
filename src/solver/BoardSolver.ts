@@ -10,10 +10,11 @@ export class BoardSolver {
 
     solve(answer: string, board: Board): string[][] {
         const results: string[][] = [];
-        for (const pattern of board) {
-            const words = this.solver.solve(answer, pattern);
 
-            results.push(words);
+        for (const pattern of board) {
+            const word = this.solver.solve(answer, pattern);
+
+            results.push(word);
         }
         return results;
     }
