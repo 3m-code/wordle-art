@@ -1,0 +1,31 @@
+name: update-answer.yml
+on:
+  schedule:
+    - cron: "15 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install
+
+      - run: node scripts/update-wordle.mjs
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add public/answer_today.json
+
+          git diff --cached --quiet || git commit -m "Update daily Wordle answer"
+
+          git push
