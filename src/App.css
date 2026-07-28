@@ -1,3 +1,41 @@
+.word-row {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+
+.cell {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+  font-weight: bold;
+
+  border: 1px solid black;
+}
+
+
+.green {
+  background: green;
+  color: white;
+}
+
+
+.yellow {
+  background: gold;
+}
+
+
+.black {
+  background: gray;
+  color: white;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

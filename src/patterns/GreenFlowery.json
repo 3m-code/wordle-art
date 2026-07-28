@@ -1,0 +1,68 @@
+[
+  {
+    "cells" : [
+      [
+        "BLACK",
+        "GREEN",
+        "BLACK",
+        "GREEN",
+        "BLACK"
+      ]
+    ]
+  },
+  {
+    "cells" : [
+      [
+        "GREEN",
+        "BLACK",
+        "BLACK",
+        "BLACK",
+        "GREEN"
+      ]
+    ]
+  },
+  {
+    "cells" : [
+      [
+        "BLACK",
+        "BLACK",
+        "GREEN",
+        "BLACK",
+        "BLACK"
+      ]
+    ]
+  },
+  {
+    "cells" : [
+      [
+        "BLACK",
+        "BLACK",
+        "BLACK",
+        "GREEN",
+        "BLACK"
+      ]
+    ]
+  },
+  {
+    "cells" : [
+      [
+        "GREEN",
+        "BLACK",
+        "BLACK",
+        "BLACK",
+        "BLACK"
+      ]
+    ]
+  },
+  {
+    "cells" : [
+      [
+        "BLACK",
+        "GREEN",
+        "GREEN",
+        "BLACK",
+        "BLACK"
+      ]
+    ]
+  }
+]
