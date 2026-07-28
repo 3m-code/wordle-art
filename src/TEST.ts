@@ -1,6 +1,5 @@
 import { Dictionary } from "./solver/Dictionary";
 import { Solver } from "./solver/Solver";
-import { ConstraintBuilder } from "./solver/ConstraintBuilder";
 
 import { CellColor } from "./models/CellColor";
 import type { Pattern } from "./models/Pattern";
@@ -16,24 +15,11 @@ const pattern: Pattern = {
         ]
     ]
 };
-
-const constraint =
-    ConstraintBuilder.build(
-        "LEVEL",
-        pattern
-    );
-
-console.log(
-    JSON.stringify(
-        constraint,
-        null,
-        2
-    )
-);
+const answer = "LEVEL";
 
 const dictionary = new Dictionary();
 await dictionary.load();
 const solver = new Solver(dictionary);
-const result = solver.solve(constraint);
+const result = solver.solve(answer, pattern);
 
 console.log(result);

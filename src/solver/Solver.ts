@@ -1,22 +1,35 @@
 import { Dictionary } from "./Dictionary";
-import type { Constraint } from "../models/Constraint";
-import { Validator } from "./Validator";
+import { WordleEngine } from "./WordleEngine";
+import type { Pattern } from "../models/Pattern";
 
 export class Solver {
-    private dictionary: Dictionary;
-
+    private readonly dictionary: Dictionary;
     constructor(dictionary: Dictionary) {
         this.dictionary = dictionary;
     }
 
-    solve(constraint: Constraint): string[] {
-        return this.dictionary
-            .get_words()
-            .filter(word =>
-                Validator.is_valid(
-                    word,
-                    constraint
-                )
-            );
+    solve(answer: string, expected_pattern: Pattern): string[] {
+        const result: string[] = [];
+        for (const word of this.dictionary.get_words()) {
+            const actual_pattern =
+                WordleEngine.evaluate(
+                    answer,
+                    word
+                );
+            if (this.patterns_equal(actual_pattern, expected_pattern)) {
+                result.push(word);
+            }
+        }
+        return result;
+    }
+
+    private patterns_equal(a: Pattern, b: Pattern): boolean {
+        for (let i = 0; i < 5; i++) {
+            if (a.cells[0][i] !== b.cells[0][i]) {
+                return false;
+            }
+
+        }
+        return true;
     }
 }
