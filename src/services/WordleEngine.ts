@@ -1,5 +1,5 @@
-import type { Pattern } from "../models/Pattern";
-import { CellColor } from "../models/CellColor";
+import type { Pattern } from "../models/Pattern.ts";
+import { CellColor } from "../models/CellColor.ts";
 
 export class WordleEngine {
 

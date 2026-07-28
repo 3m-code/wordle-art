@@ -1,5 +1,5 @@
 import { Dictionary } from "./Dictionary";
-import { WordleEngine } from "./WordleEngine";
+import { WordleEngine } from "../services/WordleEngine.ts";
 import type { Pattern } from "../models/Pattern";
 
 export class Solver {

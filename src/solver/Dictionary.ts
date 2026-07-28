@@ -1,14 +1,12 @@
-import { readFile } from "node:fs/promises";
-
 export class Dictionary {
     private words: string[] = [];
 
     async load(): Promise<void> {
+        const response =
+            await fetch("/allowed_guesses.txt");
+
         const text =
-            await readFile(
-                "public/allowed_guesses.txt",
-                "utf-8"
-            );
+            await response.text();
 
         this.words =
             text
