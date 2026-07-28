@@ -1,23 +1,25 @@
+import { readFile } from "node:fs/promises";
+
 export class Dictionary {
-
     private words: string[] = [];
+
     async load(): Promise<void> {
-
-        const response =
-            await fetch("/dictionary.txt");
-
         const text =
-            await response.text();
+            await readFile(
+                "public/allowed_guesses.txt",
+                "utf-8"
+            );
 
         this.words =
             text
                 .split("\n")
-                .map(w => w.trim().toUpperCase())
+                .map(word =>
+                    word.trim().toUpperCase()
+                )
                 .filter(Boolean);
     }
 
     get_words(): string[] {
         return this.words;
     }
-
 }

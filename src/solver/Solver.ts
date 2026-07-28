@@ -9,10 +9,7 @@ export class Solver {
         this.dictionary = dictionary;
     }
 
-    solve(
-        constraint: Constraint
-    ): string[] {
-
+    solve(constraint: Constraint): string[] {
         return this.dictionary
             .get_words()
             .filter(word =>
