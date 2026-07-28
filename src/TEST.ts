@@ -8,8 +8,8 @@ import type { Pattern } from "./models/Pattern";
 const pattern: Pattern = {
     cells: [
         [
-            CellColor.BLACK,
-            CellColor.YELLOW,
+            CellColor.GREEN,
+            CellColor.GREEN,
             CellColor.BLACK,
             CellColor.BLACK,
             CellColor.BLACK
@@ -19,7 +19,7 @@ const pattern: Pattern = {
 
 const constraint =
     ConstraintBuilder.build(
-        "LOGAN",
+        "LEVEL",
         pattern
     );
 

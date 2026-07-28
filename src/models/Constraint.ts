@@ -1,10 +1,11 @@
 export interface PositionConstraint {
-    allowedMask: number;
+    allowed_mask: number;
+    required_letter?: string;
 }
 
 export interface LetterConstraint {
-    minOccurrences: number;
-    maxOccurrences: number | null;
+    min_occurrences: number;
+    max_occurrences: number | null;
 }
 
 export interface Constraint {

@@ -1,15 +1,37 @@
-import type { Constraint } from "../models/Constraint";
+import type { Constraint, LetterConstraint } from "../models/Constraint";
 import type { Pattern } from "../models/Pattern";
 import { CellColor } from "../models/CellColor";
 
 export class ConstraintBuilder {
     static build(answer: string, pattern: Pattern): Constraint {
         const letters = Array.from(answer);
+
+        const letter_constraints: LetterConstraint[] =
+            Array.from(
+                { length: 26 },
+                () => ({
+                    min_occurrences: 0,
+                    max_occurrences: null
+                })
+            );
+
+        build_letter_constraints(answer, pattern, letter_constraints);
+
         const positions = letters.map((letter, index) => {
             const cell = pattern.cells[0][index];
+
+            if (cell === CellColor.GREEN) {
+
+                return {
+                    allowed_mask: create_mask([letter]),
+                    required_letter: letter
+                };
+
+            }
+
             if (cell === CellColor.YELLOW) {
                 return {
-                    allowedMask: create_mask(
+                    allowed_mask: create_mask(
                         letters.filter(
                             l => l !== letter
                         )
@@ -19,7 +41,7 @@ export class ConstraintBuilder {
             }
             
             return {
-                allowedMask: create_mask(
+                allowed_mask: create_mask(
                     get_alphabet()
                         .filter(
                             l => !letters.includes(l)
@@ -31,7 +53,7 @@ export class ConstraintBuilder {
         
         return {
             positions,
-            letters: []
+            letters: letter_constraints
         };
     }
 }
@@ -49,4 +71,23 @@ function create_mask(letters: string[]): number {
     }
     
     return mask;
+}
+
+function build_letter_constraints(answer: string, pattern: Pattern, letter_constraints: LetterConstraint[]): void {
+    const counts: Record<string, number> = {};
+
+    for (const letter of answer) {
+        counts[letter] =
+            (counts[letter] ?? 0) + 1;
+    }
+
+    for (const letter in counts) {
+        const index =
+            letter.charCodeAt(0) - 65;
+
+        letter_constraints[index] = {
+            min_occurrences: counts[letter],
+            max_occurrences: counts[letter]
+        };
+    }
 }
