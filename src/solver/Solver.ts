@@ -4,6 +4,7 @@ import type { Pattern } from "../models/Pattern";
 
 export class Solver {
     private readonly dictionary: Dictionary;
+
     constructor(dictionary: Dictionary) {
         this.dictionary = dictionary;
     }

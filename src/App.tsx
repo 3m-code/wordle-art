@@ -1,118 +1,205 @@
 import "./App.css";
+
 import { useEffect, useState } from "react";
 
-import flowery from "./patterns/Flowery.json";
+import type { Board } from "./models/Board";
+import { CellColor } from "./models/CellColor";
 
-import { load_pattern  } from "./services/PatternLoader";
+import { PaintBoard } from "./components/PaintBoard";
 
-import { BoardSolver } from "./solver/BoardSolver";
 import { Dictionary } from "./solver/Dictionary";
 import { Solver } from "./solver/Solver";
+import { BoardSolver } from "./solver/BoardSolver";
 
-import type { Pattern } from "./models/Pattern";
-import { WordRow } from "./components/WordRow";
+import { WordleArt } from "./services/WordleArt";
+
 
 function App() {
 
-    interface ResultWord {
-        candidates: string[];
-        selected: number;
-        pattern: Pattern;
-    }
+
+    const [board, set_board] =
+        useState<Board>(
+            create_empty_board()
+        );
 
 
     const [words, set_words] =
-        useState<ResultWord[]>([]);
+        useState<string[]>([]);
+
 
 
     useEffect(() => {
-        async function generate() {
-            const response = await fetch("/answer_today.json");
 
-            const data = await response.json();
+        async function init() {
 
-            const answer = data.answer;
 
-            const board = load_pattern(flowery);
+            const dictionary =
+                new Dictionary();
 
-            const dictionary = new Dictionary();
+
             await dictionary.load();
 
-            const solver = new Solver(dictionary);
-            const board_solver = new BoardSolver(solver);
 
-            const result = board_solver.solve(answer, board);
 
-            if (result === null) { return; }
+            const solver =
+                new Solver(dictionary);
+
+
+
+            const board_solver =
+                new BoardSolver(solver);
+
+
+
+            const wordle_art =
+                new WordleArt(
+                    board_solver
+                );
+
+
+            await wordle_art.init();
+
+
+
+            const result =
+                wordle_art.generate(board);
+
+
+            if (result === null) {
+                set_words([]);
+                return;
+            }
+
 
             set_words(
-                result.map(
-                    (candidates, index) => ({
-                        candidates,
-                        selected: Math.floor(
-                            Math.random() * candidates.length
-                        ),
-                        pattern: board[index]
-                    })
+    result.map(
+        candidates =>
+            candidates[
+                Math.floor(
+                    Math.random() * candidates.length
                 )
-            );
+            ]
+    )
+);
+
         }
 
-        void generate();
+
+        void init();
+
+
     }, []);
 
-    function reroll(index: number) {
-        set_words(current =>
-            current.map((item, i) => {
-                if (i !== index) {
-                    return item;
-                }
 
-                let new_selected = Math.floor(Math.random() * item.candidates.length);
 
-                return {
-                    ...item,
-                    selected: new_selected
-                };
+
+    async function update_board(new_board: Board) {
+
+        set_board(new_board);
+
+
+        const dictionary =
+            new Dictionary();
+
+
+        await dictionary.load();
+
+
+
+        const solver =
+            new Solver(dictionary);
+
+
+
+        const board_solver =
+            new BoardSolver(solver);
+
+
+
+        const wordle_art =
+            new WordleArt(
+                board_solver
+            );
+
+
+        await wordle_art.init();
+
+
+
+        const result =
+            wordle_art.generate(
+                new_board
+            );
+
+        if (result === null) {
+            set_words([]);
+            return;
+        }
+        set_words(
+    result.map(
+        candidates =>
+            candidates[
+                Math.floor(
+                    Math.random() * candidates.length
+                )
+            ]
+    )
+);
+
+    }
+
+
+
+
+    function create_empty_board(): Board {
+
+        return Array.from(
+            { length: 6 },
+            () => ({
+                cells: [
+                    Array(5)
+                        .fill(CellColor.BLACK)
+                ]
             })
         );
 
     }
 
-    function reroll_all() {
-        words.forEach((_, index) => {
-            reroll(index);
-        });
-    }
+
 
     return (
+
         <div>
 
             <h1>
                 Wordle Art
             </h1>
 
-            <button onClick={reroll_all}>
-                🎲 Reroll all
-            </button>
+
+            <PaintBoard
+                board={board}
+                words={words}
+                on_change={update_board}
+            />
 
 
             {
                 words.map(
-                    (item, index) => (
+                    (candidates,index)=>(
 
-                        <WordRow
-                            key={index}
-                            candidates={item.candidates}
-                            selected={item.selected}
-                            pattern={item.pattern}
-                            on_reroll={() => reroll(index)}
-                        />
+                        <div key={index}>
+
+                            {candidates[0] ?? "brak"}
+
+                        </div>
 
                     )
                 )
             }
+
+
         </div>
+
     );
 }
 

@@ -1,3 +1,40 @@
+.paint-board {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+.paint-row {
+  display: flex;
+  gap: 5px;
+}
+
+
+.paint-cell {
+  width: 60px;
+  height: 60px;
+
+  border: 2px solid #555;
+
+  cursor: pointer;
+}
+
+
+.paint-cell.black {
+  background: #787c7e;
+}
+
+
+.paint-cell.yellow {
+  background: #c9b458;
+}
+
+
+.paint-cell.green {
+  background: #6aaa64;
+}
+
 .word-row {
   display: flex;
   gap: 5px;

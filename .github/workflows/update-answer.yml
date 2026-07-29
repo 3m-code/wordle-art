@@ -17,7 +17,7 @@ jobs:
 
       - run: npm install
 
-      - run: node scripts/update-wordle.mjs
+      - run: node scripts/update-answer.mjs
 
       - name: Commit
         run: |
