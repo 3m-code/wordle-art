@@ -8,18 +8,17 @@ export class Solver {
         this.dictionary = dictionary;
     }
 
-    solve(answer: string, expected_pattern: Pattern): string | null {
-        //const result: string[] = [];
+    solve(answer: string, expected_pattern: Pattern): string[] {
+        const result: string[] = [];
 
         for (const word of this.dictionary.get_words()) {
             const actual_pattern = WordleEngine.evaluate(answer, word);
 
             if (this.patterns_equal(actual_pattern, expected_pattern)) {
-                return word;
-                //result.push(word);
+                result.push(word);
             }
         }
-        return null;
+        return result;
     }
 
     private patterns_equal(a: Pattern, b: Pattern): boolean {

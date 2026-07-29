@@ -8,15 +8,13 @@ export class BoardSolver {
         this.solver = solver;
     }
 
-    solve(answer: string, board: Board): string[] | null{
-        const results: string[] = [];
+    solve(answer: string, board: Board): string[][] | null{
+        const results: string[][] = [];
 
         for (const pattern of board) {
-            const word: string = this.solver.solve(answer, pattern);
+            const words: string[] = this.solver.solve(answer, pattern);
 
-            if (word === null) {return null;}
-
-            results.push(word);
+            results.push(words);
         }
         return results;
     }

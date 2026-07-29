@@ -15,7 +15,8 @@ import { WordRow } from "./components/WordRow";
 function App() {
 
     interface ResultWord {
-        word: string;
+        candidates: string[];
+        selected: number;
         pattern: Pattern;
     }
 
@@ -42,19 +43,47 @@ function App() {
 
             const result = board_solver.solve(answer, board);
 
+            if (result === null) { return; }
+
             set_words(
                 result.map(
-                    (word, index) => ({
-                        word,
+                    (candidates, index) => ({
+                        candidates,
+                        selected: Math.floor(
+                            Math.random() * candidates.length
+                        ),
                         pattern: board[index]
                     })
                 )
             );
         }
 
-        generate();
+        void generate();
     }, []);
 
+    function reroll(index: number) {
+        set_words(current =>
+            current.map((item, i) => {
+                if (i !== index) {
+                    return item;
+                }
+
+                let new_selected = Math.floor(Math.random() * item.candidates.length);
+
+                return {
+                    ...item,
+                    selected: new_selected
+                };
+            })
+        );
+
+    }
+
+    function reroll_all() {
+        words.forEach((_, index) => {
+            reroll(index);
+        });
+    }
 
     return (
         <div>
@@ -63,6 +92,10 @@ function App() {
                 Wordle Art
             </h1>
 
+            <button onClick={reroll_all}>
+                🎲 Reroll all
+            </button>
+
 
             {
                 words.map(
@@ -70,14 +103,15 @@ function App() {
 
                         <WordRow
                             key={index}
-                            word={item.word}
+                            candidates={item.candidates}
+                            selected={item.selected}
                             pattern={item.pattern}
+                            on_reroll={() => reroll(index)}
                         />
 
                     )
                 )
             }
-
         </div>
     );
 }
