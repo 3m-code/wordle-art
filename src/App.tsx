@@ -224,17 +224,13 @@ function App() {
 
             <div className="button-container">
                 <button onClick={clear_board}>
-                    🧹 Clear the board
+                    🧹 Clear board
                 </button>
                 <button onClick={reroll_all}>
                     🎲 Reroll all
                 </button>
-                <button onClick={async () => {
-                    await play_flowery_sound();
-                    change_flowery_pattern();
-                }}
-                >
-                    🌸 Flowery
+                <button onClick={() => set_dark_cells(current => !current)}>
+                    👁️ Better visibility
                 </button>
             </div>
 
@@ -248,8 +244,12 @@ function App() {
             />
 
             <div className="button-container">
-                <button onClick={() => set_dark_cells(current => !current)}>
-                    👁️ Better visibility
+                <button onClick={async () => {
+                    await play_flowery_sound();
+                    change_flowery_pattern();
+                }}
+                >
+                    🌸 Flowery
                 </button>
                 <button onClick={save_pattern}>
                     💾 Save pattern
