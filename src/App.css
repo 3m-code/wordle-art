@@ -49,6 +49,27 @@ button:active {
     align-items: center;
 }
 
+.github-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    padding: 16px 16px;
+
+    background: #24292f;
+    color: white;
+    border-radius: 8px;
+
+    transition: .15s;
+    z-index: 10;
+}
+
+
+.github-button:hover {
+    transform: translateY(-2px);
+    background: #333;
+}
+
 h1{
     font-size: 64px;
     font-weight: 600;
