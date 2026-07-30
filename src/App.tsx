@@ -1,6 +1,7 @@
 import "./App.css";
 
 import {useEffect, useState} from "react";
+import type {ChangeEvent} from "react";
 
 import type {Board} from "./types/Board";
 import {CellColor} from "./types/CellColor";
@@ -27,15 +28,18 @@ function App() {
     const [candidates, set_candidates] = useState<string[][]>([]);
     const [words, set_words] = useState<string[]>([]);
     const [dark_cells, set_dark_cells] = useState(false);
+    const [date, set_date] = useState<string>("");
 
     const [current_pattern, set_current_pattern] = useState(0);
     const patterns_flowery = [flowery, green_flowery];
+    const [flowery_audio] = useState(() => new Audio(flowery_sound));
 
     useEffect(() => {
         async function init() {
             const wordle_art = await create_wordle_art();
             set_wordle_art(wordle_art);
             update_board(board, wordle_art);
+            set_date(wordle_art.get_date());
         }
 
         void init();
@@ -146,9 +150,9 @@ function App() {
         update_board(new_board);
     }
 
-    function play_flowery_sound() {
-        const audio = new Audio(flowery_sound);
-        audio.play();
+    async function play_flowery_sound() {
+        flowery_audio.currentTime = 0;
+        void flowery_audio.play();
     }
 
     function save_pattern(){
@@ -167,14 +171,14 @@ function App() {
 
     }
 
-    function load_saved_pattern(event: React.ChangeEvent<HTMLInputElement>){
+    function load_saved_pattern(event: ChangeEvent<HTMLInputElement>){
         const file = event.target.files?.[0];
 
         if(!file) return;
 
         const reader = new FileReader();
 
-        reader.onload = event => {
+        reader.onload = () => {
             try {
                 const data = JSON.parse(reader.result as string);
 
@@ -214,6 +218,9 @@ function App() {
             <h1>
                 Wordle Art
             </h1>
+            <h2>
+                Answer from {date}
+            </h2>
 
             <div className="button-container">
                 <button onClick={clear_board}>
@@ -222,8 +229,8 @@ function App() {
                 <button onClick={reroll_all}>
                     🎲 Reroll all
                 </button>
-                <button onClick={() => {
-                    play_flowery_sound();
+                <button onClick={async () => {
+                    await play_flowery_sound();
                     change_flowery_pattern();
                 }}
                 >

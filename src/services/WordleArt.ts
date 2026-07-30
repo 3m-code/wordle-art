@@ -28,4 +28,8 @@ export class WordleArt {
         const answer = this.wordle_data.get_answer();
         return this.board_solver.solve_row(answer, pattern);
     }
+
+    get_date(): string{
+        return this.wordle_data.get_date();
+    }
 }
