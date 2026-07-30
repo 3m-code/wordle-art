@@ -1,8 +1,7 @@
-import type { Board } from "../models/Board";
-import { CellColor } from "../models/CellColor";
+import type {Board} from "../types/Board";
+import {CellColor} from "../types/CellColor";
 
 export function load_pattern(data: any): Board {
-
     return data.map(
         (pattern: any) => ({
             cells: [

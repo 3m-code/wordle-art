@@ -1,6 +1,6 @@
-import { Dictionary } from "./Dictionary";
-import { WordleEngine } from "../services/WordleEngine.ts";
-import type { Pattern } from "../models/Pattern";
+import {Dictionary} from "./Dictionary";
+import {WordleEngine} from "../services/WordleEngine.ts";
+import type {Pattern} from "../types/Pattern";
 
 export class Solver {
     private readonly dictionary: Dictionary;
@@ -15,9 +15,7 @@ export class Solver {
         for (const word of this.dictionary.get_words()) {
             const actual_pattern = WordleEngine.evaluate(answer, word);
 
-            if (this.patterns_equal(actual_pattern, expected_pattern)) {
-                result.push(word);
-            }
+            if (this.patterns_equal(actual_pattern, expected_pattern)) result.push(word);
         }
         return result;
     }

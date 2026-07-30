@@ -8,7 +8,6 @@
     "build": "ite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "tsx src/TEST.ts"
   },
   "dependencies": {
     "react": "^19.2.7",

@@ -1,4 +1,4 @@
-import { CellColor } from "../models/CellColor";
+import {CellColor} from "../types/CellColor";
 
 
 interface Props {

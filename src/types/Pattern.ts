@@ -1,4 +1,4 @@
-import type { CellColor } from "./CellColor";
+import type {CellColor} from "./CellColor";
 
 export interface Pattern {
     cells: CellColor[][];

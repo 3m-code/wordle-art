@@ -1,6 +1,6 @@
-import type { Board } from "../models/Board";
-import { PaintRow } from "./PaintRow";
-import type {Pattern} from "../models/Pattern.ts";
+import type {Board} from "../types/Board";
+import {PaintRow} from "./PaintRow";
+import type {Pattern} from "../types/Pattern.ts";
 
 interface Props {
     board: Board;
@@ -20,9 +20,7 @@ export function PaintBoard(
 
     return (
         <div className="paint-board">
-
             {board.map((pattern, row) => (
-
                 <PaintRow
                     key={row}
                     pattern={pattern}
@@ -38,7 +36,6 @@ export function PaintBoard(
                 />
 
             ))}
-
         </div>
     );
 }

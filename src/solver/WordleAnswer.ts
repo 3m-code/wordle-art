@@ -10,11 +10,11 @@ export class WordleData {
         this.date = data.date;
     }
 
-    get_answer(): string{
+    get_answer(): string {
         return this.answer;
     }
 
-    get_date(): string{
+    get_date(): string {
         return this.date;
     }
 
