@@ -12,19 +12,17 @@ import { Solver } from "./solver/Solver";
 import { BoardSolver } from "./solver/BoardSolver";
 
 import { WordleArt } from "./services/WordleArt";
+import type {Pattern} from "./models/Pattern.ts";
 
 
 function App() {
 
+    const [wordle_art, set_wordle_art] = useState<WordleArt>();
+    const [board, set_board] = useState<Board>(create_empty_board());
 
-    const [board, set_board] =
-        useState<Board>(
-            create_empty_board()
-        );
+    const [candidates, set_candidates] = useState<string[][]>([]);
 
-
-    const [words, set_words] =
-        useState<string[]>([]);
+    const [words, set_words] = useState<string[]>([]);
 
 
 
@@ -32,51 +30,33 @@ function App() {
 
         async function init() {
 
-
-            const dictionary =
-                new Dictionary();
-
-
+            const dictionary = new Dictionary();
             await dictionary.load();
 
+            const solver = new Solver(dictionary);
 
+            const board_solver = new BoardSolver(solver);
 
-            const solver =
-                new Solver(dictionary);
-
-
-
-            const board_solver =
-                new BoardSolver(solver);
-
-
-
-            const wordle_art =
-                new WordleArt(
-                    board_solver
-                );
-
-
+            const wordle_art = new WordleArt(board_solver);
             await wordle_art.init();
+            set_wordle_art(wordle_art);
 
-
-
-            const result =
-                wordle_art.generate(board);
+            const result = wordle_art.generate(board);
 
 
             if (result === null) {
+                set_candidates([]);
                 set_words([]);
                 return;
             }
 
-
+            set_candidates(result);
             set_words(
     result.map(
-        candidates =>
-            candidates[
+        row_candidates =>
+            row_candidates[
                 Math.floor(
-                    Math.random() * candidates.length
+                    Math.random() * row_candidates.length
                 )
             ]
     )
@@ -91,65 +71,68 @@ function App() {
     }, []);
 
 
+    function random_word(words: string[]): string {
+        return words[Math.floor(Math.random() * words.length)];
+    }
 
+    async function update_row(row: number, pattern: Pattern) {
 
-    async function update_board(new_board: Board) {
+        const new_board = [...board];
+        new_board[row] = pattern;
 
         set_board(new_board);
 
+        if(!wordle_art) return;
 
-        const dictionary =
-            new Dictionary();
+        const row_candidates = wordle_art.solve_row(pattern);
 
+        set_candidates(current=>{
 
-        await dictionary.load();
+            const copy=[...current];
 
+            copy[row]=row_candidates;
 
+            return copy;
 
-        const solver =
-            new Solver(dictionary);
-
-
-
-        const board_solver =
-            new BoardSolver(solver);
+        });
 
 
+        set_words(current=>{
 
-        const wordle_art =
-            new WordleArt(
-                board_solver
-            );
+            const copy=[...current];
 
+            copy[row]=random_word(row_candidates);
 
-        await wordle_art.init();
+            return copy;
 
-
-
-        const result =
-            wordle_art.generate(
-                new_board
-            );
-
-        if (result === null) {
-            set_words([]);
-            return;
-        }
-        set_words(
-    result.map(
-        candidates =>
-            candidates[
-                Math.floor(
-                    Math.random() * candidates.length
-                )
-            ]
-    )
-);
-
+        });
     }
 
 
+    function reroll(row: number) {
+            const row_candidates = candidates[row];
 
+            if (!row_candidates || row_candidates.length === 0) {
+                return;
+            }
+
+        set_words(current=>{
+
+            const copy=[...current];
+
+            copy[row] =
+                row_candidates[
+                    Math.floor(
+                        Math.random()
+                        *
+                        row_candidates.length
+                    )
+                    ];
+
+            return copy;
+
+        });
+    }
 
     function create_empty_board(): Board {
 
@@ -179,18 +162,17 @@ function App() {
             <PaintBoard
                 board={board}
                 words={words}
-                on_change={update_board}
+                on_row_change={update_row}
+                on_row_reroll={reroll}
             />
 
 
             {
                 words.map(
-                    (candidates,index)=>(
+                    (word,index)=>(
 
                         <div key={index}>
-
-                            {candidates[0] ?? "brak"}
-
+                            {word}
                         </div>
 
                     )

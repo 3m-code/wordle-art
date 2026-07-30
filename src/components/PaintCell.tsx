@@ -1,4 +1,4 @@
-import type { CellColor } from "../models/CellColor";
+import { CellColor } from "../models/CellColor";
 
 
 interface Props {
@@ -6,7 +6,6 @@ interface Props {
     letter: string;
     on_click: () => void;
 }
-
 
 export function PaintCell(
     {

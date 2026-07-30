@@ -1,4 +1,6 @@
 import type { Board } from "../models/Board";
+import type {Pattern} from "../models/Pattern.ts";
+
 import { Solver } from "./Solver";
 
 export class BoardSolver {
@@ -17,5 +19,9 @@ export class BoardSolver {
             results.push(words);
         }
         return results;
+    }
+
+    solve_row(answer: string, pattern: Pattern): string[]{
+        return this.solver.solve(answer, pattern);
     }
 }

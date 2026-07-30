@@ -1,7 +1,8 @@
 import { BoardSolver } from "../solver/BoardSolver";
-import type { Board } from "../models/Board";
-
 import { WordleData } from "../solver/WordleAnswer";
+
+import type { Board } from "../models/Board";
+import type { Pattern } from "../models/Pattern";
 
 export class WordleArt {
 
@@ -16,7 +17,7 @@ export class WordleArt {
         await this.wordle_data.load();
     }
 
-    generate(board: Board) {
+    generate(board: Board): string[][] | null {
         const answer = this.wordle_data.get_answer();
 
         const candidates = this.board_solver.solve(answer, board);
@@ -26,13 +27,12 @@ export class WordleArt {
         }
 
 
-        return candidates.map(
-            words => {
-                if(words.length === 0){
-                    return "";
-                }
-                return words[Math.floor(Math.random() * words.length)];
-            }
-        );
+        return candidates;
+    }
+
+    solve_row(pattern: Pattern): string[]{
+        const answer = this.wordle_data.get_answer();
+
+        return this.board_solver.solve_row(answer, pattern);
     }
 }
