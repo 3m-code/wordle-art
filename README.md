@@ -16,7 +16,7 @@ The application uses the same feedback rules as Wordle:
 - Reroll individual rows or the whole board to generate different words.
 - Export and import artworks as JSON files.
 - Visibility mode toggle for easier pattern viewing.
-- [![Flowery](flowery_icon.png) Flowery](https://open.spotify.com/track/3ledoLy9Koeieu3o6kjFMh?autoplay_ok=1)
+- [![Flowery](img/flowery_icon.png) Flowery](https://open.spotify.com/track/3ledoLy9Koeieu3o6kjFMh?autoplay_ok=1)
 
 ## Try it online
 You can use it for free here:
