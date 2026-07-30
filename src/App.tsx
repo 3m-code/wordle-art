@@ -2,7 +2,7 @@ import "./App.css";
 
 import {useEffect, useState} from "react";
 import type {ChangeEvent} from "react";
-//import { FaGithub } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 import type {Board} from "./types/Board";
 import {CellColor} from "./types/CellColor";
@@ -215,14 +215,13 @@ function App() {
 
     return (
         <div className="app">
-            {/*<a*/}
-            {/*    className="github-button"*/}
-            {/*    href="https://github.com/3m-code/wordle-art"*/}
-            {/*    target="_blank"*/}
-            {/*    rel="noopener noreferrer"*/}
-            {/*>*/}
-            {/*    <FaGithub/>*/}
-            {/*</a>*/}
+            <a
+                className="github-button"    href="https://github.com/3m-code/wordle-art"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <FaGithub/>
+            </a>
 
             <h1>
                 Wordle Art
