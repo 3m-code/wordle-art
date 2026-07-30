@@ -20,4 +20,4 @@ The application uses the same feedback rules as Wordle:
 
 ## Try it online
 You can use it for free here:
-[Wordle Art](LINKKKKKKKKKKKKK)
+[Wordle Art](https://wordle-art-3m-code.vercel.app/)
