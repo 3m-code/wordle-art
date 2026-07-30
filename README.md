@@ -4,14 +4,15 @@ A visual Wordle pattern solver that allows you to create pixel art and automatic
 ## How it works
 The application uses the same feedback rules as Wordle:
 
-- A target answer is *automatically* loaded.
+- The daily Wordle answer is *automatically* loaded.
 - The user creates a board pattern (artwork).
 - Each row pattern is converted into a Wordle feedback result.
 - The solver searches the dictionary for valid words producing the same feedback.
-- One matching word is selected and displayed.
+- One matching word is selected and displayed per row.
 
 ## Features
 
+- Clean the board and start over.
 - Reroll individual rows or the whole board to generate different words.
 - Export and import artworks as JSON files.
 - Visibility mode toggle for easier pattern viewing.
