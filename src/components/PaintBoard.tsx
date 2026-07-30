@@ -1,6 +1,8 @@
-import type {Board} from "../types/Board";
+import "./styles/PaintBoard.css";
 import {PaintRow} from "./PaintRow";
+
 import type {Pattern} from "../types/Pattern.ts";
+import type {Board} from "../types/Board";
 
 interface Props {
     board: Board;

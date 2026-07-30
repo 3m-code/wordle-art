@@ -1,5 +1,6 @@
-import {CellColor} from "../types/CellColor";
+import "./styles/PaintCell.css";
 
+import {CellColor} from "../types/CellColor";
 
 interface Props {
     color: CellColor;

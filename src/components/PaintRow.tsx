@@ -1,6 +1,8 @@
+import "./styles/PaintRow.css";
+import {PaintCell} from "./PaintCell";
+
 import {CellColor} from "../types/CellColor";
 import type {Pattern} from "../types/Pattern";
-import {PaintCell} from "./PaintCell";
 
 interface Props {
     pattern: Pattern;

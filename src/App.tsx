@@ -152,25 +152,27 @@ function App() {
 
 
     return (
-
-        <div>
+        <div className="app">
 
             <h1>
                 Wordle Art
             </h1>
-            <button onClick={clear_board}>
-                🧹 Clear the board
-            </button>
-            <button onClick={reroll_all}>
-                🎲 Reroll all
-            </button>
-            <button onClick={() => {
-                play_flowery_sound();
-                change_flowery_pattern();
-            }}
-            >
-                🌸 Flowery
-            </button>
+
+            <div className="button-container">
+                <button onClick={clear_board}>
+                    🧹 Clear the board
+                </button>
+                <button onClick={reroll_all}>
+                    🎲 Reroll all
+                </button>
+                <button onClick={() => {
+                    play_flowery_sound();
+                    change_flowery_pattern();
+                }}
+                >
+                    🌸 Flowery
+                </button>
+            </div>
 
 
             <PaintBoard
