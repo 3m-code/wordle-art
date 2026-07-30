@@ -7,6 +7,7 @@ import type {Board} from "../types/Board";
 interface Props {
     board: Board;
     words: string[];
+    dark_cells: boolean;
     on_row_change: (row: number, pattern: Pattern) => void;
     on_row_reroll: (row: number) => void;
 }
@@ -15,6 +16,7 @@ export function PaintBoard(
     {
         board,
         words,
+        dark_cells,
         on_row_change,
         on_row_reroll
     }: Props
@@ -27,6 +29,7 @@ export function PaintBoard(
                     key={row}
                     pattern={pattern}
                     word={words[row] ?? "     "}
+                    dark_cells={dark_cells}
                     on_pattern_change={
                         new_pattern =>
                             on_row_change(

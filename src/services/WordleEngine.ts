@@ -6,7 +6,7 @@ export class WordleEngine {
         const answer_letters = Array.from(answer);
         const guess_letters = Array.from(guess);
 
-        const result: CellColor[] = Array(5).fill(CellColor.BLACK);
+        const result: CellColor[] = Array(5).fill(CellColor.GREY);
 
         const used = Array(5).fill(false);
 

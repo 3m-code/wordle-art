@@ -26,6 +26,7 @@ function App() {
     const [board, set_board] = useState<Board>(create_empty_board());
     const [candidates, set_candidates] = useState<string[][]>([]);
     const [words, set_words] = useState<string[]>([]);
+    const [dark_cells, set_dark_cells] = useState(false);
 
     const [current_pattern, set_current_pattern] = useState(0);
     const patterns_flowery = [flowery, green_flowery];
@@ -64,7 +65,7 @@ function App() {
             () => ({
                 cells: [
                     Array(5)
-                        .fill(CellColor.BLACK)
+                        .fill(CellColor.GREY)
                 ]
             })
         );
@@ -150,6 +151,62 @@ function App() {
         audio.play();
     }
 
+    function save_pattern(){
+        const data = JSON.stringify(board, null, 2);
+
+        const blob = new Blob([data], {type: "application/json"});
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "wordle-paint-pattern.json";
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+    }
+
+    function load_saved_pattern(event: React.ChangeEvent<HTMLInputElement>){
+        const file = event.target.files?.[0];
+
+        if(!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = event => {
+            try {
+                const data = JSON.parse(reader.result as string);
+
+                if (!is_valid_board(data)) {
+                    alert("Invalid pattern file");
+                    return;
+                }
+
+                update_board(data);
+            }
+            catch {
+                alert("Cannot read pattern file");
+            }
+        };
+
+        reader.readAsText(file);
+    }
+
+    function is_valid_board(data: unknown): data is Board {
+        if (!Array.isArray(data)) return false;
+
+        if (data.length !== 6) return false;
+
+        return data.every(row =>
+            Array.isArray(row.cells) &&
+            row.cells.length === 1 &&
+            Array.isArray(row.cells[0]) &&
+            row.cells[0].length === 5 &&
+
+            row.cells[0].every(cell => Object.values(CellColor).includes(cell))
+        );
+    }
 
     return (
         <div className="app">
@@ -178,9 +235,31 @@ function App() {
             <PaintBoard
                 board={board}
                 words={words}
+                dark_cells={dark_cells}
                 on_row_change={update_row}
                 on_row_reroll={reroll}
             />
+
+            <div className="button-container">
+                <button onClick={() => set_dark_cells(current => !current)}>
+                    👁️ Better visibility
+                </button>
+                <button onClick={save_pattern}>
+                    💾 Save pattern
+                </button>
+                <input
+                    id="pattern-loader"
+                    type="file"
+                    accept=".json"
+                    hidden
+                    onChange={load_saved_pattern}
+                />
+                <button
+                    onClick={() => document.getElementById("pattern-loader")?.click()}
+                >
+                    📂 Load pattern
+                </button>
+            </div>
         </div>
     );
 }

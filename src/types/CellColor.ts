@@ -1,5 +1,6 @@
 export const CellColor = {
-    BLACK: "BLACK",
+    BLACK:  "BLACK",
+    GREY: "GREY",
     YELLOW: "YELLOW",
     GREEN: "GREEN",
 } as const;

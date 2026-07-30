@@ -7,6 +7,7 @@ import type {Pattern} from "../types/Pattern";
 interface Props {
     pattern: Pattern;
     word: string;
+    dark_cells: boolean;
     on_pattern_change: (pattern: Pattern) => void;
     on_reroll: () => void;
 }
@@ -15,6 +16,7 @@ export function PaintRow(
     {
         pattern,
         word,
+        dark_cells,
         on_pattern_change,
         on_reroll
     }: Props
@@ -30,12 +32,12 @@ export function PaintRow(
 
     function next_cell_color(color: CellColor): CellColor {
         switch (color) {
-            case CellColor.BLACK:
+            case CellColor.GREY:
                 return CellColor.YELLOW;
             case CellColor.YELLOW:
                 return CellColor.GREEN;
             default:
-                return CellColor.BLACK;
+                return CellColor.GREY;
         }
     }
 
@@ -46,6 +48,7 @@ export function PaintRow(
                     key={col}
                     letter={letter}
                     color={pattern.cells[0][col]}
+                    dark_cells={dark_cells}
                     on_click={() => update_cells(col)}
                 />
             ))}

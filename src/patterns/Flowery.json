@@ -2,11 +2,11 @@
   {
     "cells": [
       [
-        "BLACK",
+        "GREY",
         "YELLOW",
-        "BLACK",
+        "GREY",
         "YELLOW",
-        "BLACK"
+        "GREY"
       ]
     ]
   },
@@ -14,9 +14,9 @@
     "cells": [
       [
         "YELLOW",
-        "BLACK",
-        "BLACK",
-        "BLACK",
+        "GREY",
+        "GREY",
+        "GREY",
         "YELLOW"
       ]
     ]
@@ -24,22 +24,22 @@
   {
     "cells": [
       [
-        "BLACK",
-        "BLACK",
+        "GREY",
+        "GREY",
         "YELLOW",
-        "BLACK",
-        "BLACK"
+        "GREY",
+        "GREY"
       ]
     ]
   },
   {
     "cells": [
       [
-        "BLACK",
-        "BLACK",
-        "BLACK",
+        "GREY",
+        "GREY",
+        "GREY",
         "YELLOW",
-        "BLACK"
+        "GREY"
       ]
     ]
   },
@@ -47,21 +47,21 @@
     "cells": [
       [
         "YELLOW",
-        "BLACK",
-        "BLACK",
-        "BLACK",
-        "BLACK"
+        "GREY",
+        "GREY",
+        "GREY",
+        "GREY"
       ]
     ]
   },
   {
     "cells": [
       [
-        "BLACK",
+        "GREY",
         "YELLOW",
         "YELLOW",
-        "BLACK",
-        "BLACK"
+        "GREY",
+        "GREY"
       ]
     ]
   }

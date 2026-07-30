@@ -1,26 +1,19 @@
 .paint-cell {
-
     width: 64px;
     height: 64px;
-
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-
     border: 2px solid #3a3a3c;
-
 
     font-size: 34px;
     font-weight: bold;
 
     text-transform: uppercase;
-
     user-select: none;
-
     cursor: pointer;
-
 
     transition:
             background .15s,
@@ -28,22 +21,23 @@
             transform .1s;
 }
 
-
 .paint-cell:hover {
     transform: scale(1.04);
 }
 
-
-.paint-cell.black {
+.paint-cell.grey {
     background: #787c7e;
 }
-
 
 .paint-cell.yellow {
     background: #c9b458;
 }
 
-
 .paint-cell.green {
     background: #6aaa64;
+}
+
+.paint-cell.black {
+    background: #121213;
+    border: 2px solid #121213;
 }
