@@ -18,7 +18,7 @@ export function PaintRow(
     }: Props
 ) {
 
-    const letters = (word ?? "").split("");
+    const letters = word ? word.split(""): Array(5).fill("");
 
     function update_cells(index: number) {
         const copy = structuredClone(pattern);
