@@ -1,7 +1,7 @@
 name: update-answer.yml
 on:
   schedule:
-    - cron: "15 4 * * *"
+    - cron: "5 5 * * *"
   workflow_dispatch:
 
 permissions:
