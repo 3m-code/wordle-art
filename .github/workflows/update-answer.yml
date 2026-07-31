@@ -1,4 +1,5 @@
-name: update-answer.yml
+name: update-answer
+
 on:
   schedule:
     - cron: "5 5 * * *"
@@ -13,6 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -23,15 +26,15 @@ jobs:
       - run: node scripts/update-answer.mjs
 
       - name: Commit and push
-  run: |
-    git config user.name "github-actions"
-    git config user.email "github-actions@github.com"
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
-    git add public/answer_today.json
+          git add public/answer_today.json
 
-    git diff --cached --quiet && exit 0
+          git diff --cached --quiet && exit 0
 
-    git commit -m "Update daily Wordle answer"
+          git commit -m "Update daily Wordle answer"
 
-    git pull --rebase origin master
-    git push origin master
+          git pull --rebase origin master
+          git push origin master
